@@ -31,7 +31,6 @@ if (isset($_POST['decision']) && $_POST['decision'] == '1') {
 		//④名前とパスワードにPOSTで送られてきた名前とパスワードを設定する
 		$user_name = $_POST['name'];
 		$user_pass = $_POST['pass'];
-		
 	} else {
 		//⑤名前かパスワードが入力されていない場合は、「名前かパスワードが未入力です」という文言をメッセージを入れる変数に設定する
 		$php_errormsg = "名前かパスワードが未入力です";
