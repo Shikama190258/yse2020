@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
 【機能】
 書籍テーブルより書籍情報を取得し、画面に表示する。
 商品をチェックし、ボタンを押すことで入荷、出荷が行える。
@@ -10,19 +10,36 @@
 出荷する商品が選択されていません：商品が一つも選択されていない状態で出荷ボタンを押す
 */
 
-//①セッションを開始する
+//(1)セッションを開始する
+// session_start();
 
-//②SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
-if (/* ②の処理を書く */){
-	//③SESSIONの「error2」に「ログインしてください」と設定する。
-	//④ログイン画面へ遷移する。
+//(2)SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
+// if (/* (2)の処理を書く */){
+	//(3)SESSIONの「error2」に「ログインしてください」と設定する。
+	//(4)ログイン画面へ遷移する。
+// }
+
+//(5)データベースへ接続し、接続情報を変数に保存する
+//(6)データベースで使用する文字コードを「UTF8」にする
+
+$db_name = 'zaiko2020_yse';
+$host = 'localhost';
+$user_name = 'zaiko2020_yse';
+$password = '2020zaiko';
+$dsn = "mysql:dbname={$db_name};host={$host}; charset=utf8";
+try {
+	$pdo = new PDO($dsn, $user_name, $password);
+} catch (PDOException $e) {
+	exit;
 }
 
-//⑤データベースへ接続し、接続情報を変数に保存する
+//(7)書籍テーブルから書籍情報を取得するSQLを実行する。また実行結果を変数に保存する
+$sql = 'SELECT * FROM books;';
+$query = $pdo->query($sql);
+while ($row =$query->fetch()){
+	$row[] = $row;
+}
 
-//⑥データベースで使用する文字コードを「UTF8」にする
-
-//⑦書籍テーブルから書籍情報を取得するSQLを実行する。また実行結果を変数に保存する
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -41,15 +58,15 @@ if (/* ②の処理を書く */){
 			<div id="error">
 				<?php
 				/*
-				 * ⑧SESSIONの「success」にメッセージが設定されているかを判定する。
+				 * (8)SESSIONの「success」にメッセージが設定されているかを判定する。
 				 * 設定されていた場合はif文の中に入る。
-				 */ 
-				if(/* ⑧の処理を書く */){
-					//⑨SESSIONの「success」の中身を表示する。
-				}
+				 */
+				// if(/* (8)の処理を書く */){
+					//(9)SESSIONの「success」の中身を表示する。
+				// }
 				?>
 			</div>
-			
+
 			<!-- 左メニュー -->
 			<div id="left">
 				<p id="ninsyou_ippan">
@@ -80,21 +97,21 @@ if (/* ②の処理を書く */){
 					</thead>
 					<tbody>
 						<?php
-						//⑩SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
-						while(/* ⑩の処理を書く */){
-							//⑪extract変数を使用し、1レコードのデータを渡す。
+						//(10)SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
+						// while(/* (10)の処理を書く */){
+							//(11)extract変数を使用し、1レコードのデータを渡す。
 
 							echo "<tr id='book'>";
-							echo "<td id='check'><input type='checkbox' name='books[]'value="./* ⑫IDを設定する */."></td>";
-							echo "<td id='id'>/* ⑬IDを表示する */</td>";
-							echo "<td id='title'>/* ⑭titleを表示する */</td>";
-							echo "<td id='author'>/* ⑮authorを表示する */</td>";
-							echo "<td id='date'>/* ⑯salesDateを表示する */</td>";
-							echo "<td id='price'>/* ⑰priceを表示する */</td>";
-							echo "<td id='stock'>/* ⑱stockを表示する */</td>";
+							// echo "<td id='check'><input type='checkbox' name='books[]'value="./* (12)IDを設定する */."></td>";
+							echo "<td id='id'>/* (13)IDを表示する */</td>";
+							echo "<td id='title'>/* (14)titleを表示する */</td>";
+							echo "<td id='author'>/* (15)authorを表示する */</td>";
+							echo "<td id='date'>/* (16)salesDateを表示する */</td>";
+							echo "<td id='price'>/* (17)priceを表示する */</td>";
+							echo "<td id='stock'>/* (18)stockを表示する */</td>";
 
 							echo "</tr>";
-						}
+						// }
 						?>
 					</tbody>
 				</table>
