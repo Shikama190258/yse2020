@@ -24,8 +24,8 @@
 
 $db_name = 'zaiko2020_yse';
 $host = 'localhost';
-$user_name = 'zaiko2020_yse';
-$password = '2020zaiko';
+$user_name = 'root';
+$password = '';
 $dsn = "mysql:dbname={$db_name};host={$host}; charset=utf8";
 try {
 	$pdo = new PDO($dsn, $user_name, $password);
@@ -36,9 +36,7 @@ try {
 //(7)書籍テーブルから書籍情報を取得するSQLを実行する。また実行結果を変数に保存する
 $sql = 'SELECT * FROM books;';
 $query = $pdo->query($sql);
-while ($row =$query->fetch()){
-	$row[] = $row;
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -98,20 +96,19 @@ while ($row =$query->fetch()){
 					<tbody>
 						<?php
 						//(10)SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
-						// while(/* (10)の処理を書く */){
+						while ($extract = $query->fetch(PDO::FETCH_ASSOC)){ /* ⑩の処理を書く */
 							//(11)extract変数を使用し、1レコードのデータを渡す。
 
-							echo "<tr id='book'>";
-							// echo "<td id='check'><input type='checkbox' name='books[]'value="./* (12)IDを設定する */."></td>";
-							echo "<td id='id'>/* (13)IDを表示する */</td>";
-							echo "<td id='title'>/* (14)titleを表示する */</td>";
-							echo "<td id='author'>/* (15)authorを表示する */</td>";
-							echo "<td id='date'>/* (16)salesDateを表示する */</td>";
-							echo "<td id='price'>/* (17)priceを表示する */</td>";
-							echo "<td id='stock'>/* (18)stockを表示する */</td>";
-
-							echo "</tr>";
-						// }
+							echo "<tr>" . PHP_EOL;
+							echo "<td><input type='checkbox' name='books[]'value='{$extract['id']}'></td>"; /* ⑫IDを設定する */
+							echo "<td>{extract['id']}</td>" . PHP_EOL; /* ⑬IDを表示する */
+							echo "<td>{extract['title']}</td>" . PHP_EOL; /* ⑭titleを表示する */
+							echo "<td>{extract['author']}</td>" . PHP_EOL; /* ⑮authorを表示する */
+							echo "<td>{extract['salesDate']}</td>" . PHP_EOL; /* ⑯salesDateを表示する */
+							echo "<td>{extract['price']}</td>" . PHP_EOL; /* ⑰priceを表示する */
+							echo "<td>{extract['stock']}</td>" . PHP_EOL; /* ⑱stockを表示する */
+							echo "</tr>" . PHP_EOL;
+						}
 						?>
 					</tbody>
 				</table>
