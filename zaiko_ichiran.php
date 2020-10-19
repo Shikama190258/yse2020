@@ -42,7 +42,7 @@ try {
 }
 
 //(7)書籍テーブルから書籍情報を取得するSQLを実行する。また実行結果を変数に保存する
-$sql = 'SELECT * FROM books;';
+$sql = "SELECT * FROM books";
 $query = $pdo->query($sql);
 if (!$query) exit($sql);
 
