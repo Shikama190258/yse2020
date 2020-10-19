@@ -125,16 +125,16 @@ return $query->fetch(PDO::FETCH_ASSOC);
     					// ⑯「getId」関数を呼び出し、変数に戻り値を入れる。その際引数に⑮の処理で取得した値と⑥のDBの接続情報を渡す。
 					    $bookSS = getId($book, $pdo);
 					?>
-					<input type="hidden" value="<?php echo	/* ⑰ ⑯の戻り値からidを取り出し、設定する */;?>" name="books[]">
-					<tr>
-						<td><?php echo	/* ⑱ ⑯の戻り値からidを取り出し、表示する */;?></td>
-						<td><?php echo	/* ⑲ ⑯の戻り値からtitleを取り出し、表示する */;?></td>
-						<td><?php echo	/* ⑳ ⑯の戻り値からauthorを取り出し、表示する */;?></td>
-						<td><?php echo	/* ㉑ ⑯の戻り値からsalesDateを取り出し、表示する */;?></td>
-						<td><?php echo	/* ㉒ ⑯の戻り値からpriceを取り出し、表示する */;?></td>
-						<td><?php echo	/* ㉓ ⑯の戻り値からstockを取り出し、表示する */;?></td>
-						<td><input type='text' name='stock[]' size='5' maxlength='11' required></td>
-					</tr>
+						<input type="hidden" value="<?= $book['id'] ?>" name="books[]">  /* 表示 */
+						<tr>
+							<td><?= $book['id'] ?></td>	 /* ⑱ ⑯の戻り値からidを取り出し、する */
+							<td><?= $book['title'] ?></td>  /* ⑲ ⑯の戻り値からtitleを取り出し、表示する */
+							<td><?= $book['author'] ?></td>  /* ⑳ ⑯の戻り値からauthorを取り出し、表示する */
+							<td><?= $book['salesDate'] ?></td>  /* ㉑ ⑯の戻り値からsalesDateを取り出し、表示する */
+							<td><?= $book['price'] ?></td>  /* ㉒ ⑯の戻り値からpriceを取り出し、表示する */
+							<td><?= $book['stock'] ?></td>  /* ㉓ ⑯の戻り値からstockを取り出し、表示する */
+							<td><input type='text' name='stock[]' size='5' maxlength='11' required></td>
+						</tr>
 					<?php
 					 }
 					?>
