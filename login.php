@@ -15,8 +15,9 @@
 // session_start();
 
 //①名前とパスワードを入れる変数を初期化する
-$user_name = '';
+$login_name = '';
 $password = '';
+$error_message = '';
 /*
  * ②ログインボタンが押されたかを判定する。
  * 押されていた場合はif文の中の処理を行う
@@ -27,28 +28,29 @@ if (isset($_POST['decision']) && $_POST['decision'] == '1') {
 	 * ③名前とパスワードが両方とも入力されているかを判定する。
 	 * 入力されていた場合はif文の中の処理を行う。
 	 */
-	if ($user_name == 'name' && $password == 'pass') {
+	if (!empty($_POST['name']) && !empty($_POST['pass'])) {
 		//④名前とパスワードにPOSTで送られてきた名前とパスワードを設定する
-		$user_name = $_POST['name'];
+		$login_name = $_POST['name'];
 		$password = $_POST['pass'];
 		
 	} else {
 		//⑤名前かパスワードが入力されていない場合は、「名前かパスワードが未入力です」という文言をメッセージを入れる変数に設定する
-		$php_errormsg = "名前かパスワードが未入力です";
+		$error_message= 'ユーザー名かパスワードが未入力です';
 	}
 }
 
 //⑦名前が入力されているか判定する。入力されていた場合はif文の中に入る
-// if (/* ⑦の処理を書く */) {
+if ($login_name) {
 	//⑧名前に「yse」、パスワードに「2019」と設定されているか確認する。設定されていた場合はif文の中に入る
-	// if (/* ⑧の処理を書く */){
+	if ($login_name == LOGIN_NAME && $password == LOGIN_PASSWORD) {
 		//⑨SESSIONに名前を設定し、SESSIONの「login」フラグをtrueにする
 		//⑩在庫一覧画面へ遷移する
-		// header(/* ⑩の遷移先を書く */);
-	// }else{
+		header('location:zaiko_ichiran.php');
+	} else {
 		//⑪名前もしくはパスワードが間違っていた場合は、「ユーザー名かパスワードが間違っています」という文言をメッセージを入れる変数に設定する
-	// }
-// }
+		$error_message= 'ユーザーかパスワードが未入力です';
+	}
+}
 
 //⑫SESSIONの「error2」に値が入っているか判定する。入っていた場合はif文の中に入る
 // if (/* ⑫の処理を書く */) {
@@ -68,7 +70,7 @@ if (isset($_POST['decision']) && $_POST['decision'] == '1') {
 		<h1>ログイン</h1>
 		<?php
 		//⑮エラーメッセージの変数に入っている値を表示する
-		// echo "<div id='error'>", /* ⑮の変数を書く */, "</div>";
+		echo "<div id='error'>", $error_message, "</div>";
 		
 		//⑯メッセージの変数に入っている値を表示する
 		// echo "<div id='msg'>", /* ⑯の変数を書く */, "</div>";
