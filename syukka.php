@@ -127,8 +127,8 @@ function getId($id,$con){
 				 */
 				// foreach(/* ⑮の処理を書く */){
 					// ⑯「getId」関数を呼び出し、変数に戻り値を入れる。その際引数に⑮の処理で取得した値と⑥のDBの接続情報を渡す。
-					foreach($_POST['books'] as $book_id){
-						$book = getId($book_id, $pdo);
+				foreach($_POST['books'] as $book_id){
+					$book = getId($book_id, $pdo);
 					
 				?>
 				<input type="hidden" value="<?php echo $bookSS['id'];?>" name="books[]">
@@ -148,7 +148,7 @@ function getId($id,$con){
 					<td><input type='text' name='stock[]' size='5' maxlength='11' required></td>
 				</tr>
 				<?php
-				 }
+				}
 				?>
 			</table>
 			<button type="submit" id="kakutei" formmethod="POST" name="decision" value="1">確定</button>
