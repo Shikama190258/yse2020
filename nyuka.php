@@ -25,7 +25,7 @@ if ($_SESSION['login'] == False){
 	//(4)SESSIONの「error2」に「ログインしてください」と設定する。
 	$_SESSION['error2'] = "ログインしてください";
 	//(5)ログイン画面へ遷移する。
-	// header('Location: login.php');
+	header('Location: login.php');
 }
 
 //(6)データベースへ接続し、接続情報を変数に保存する
@@ -49,10 +49,10 @@ if(! $_POST['books']){
 	//(9)SESSIONの「success」に「入荷する商品が選択されていません」と設定する。
 	$_SESSION['success'] = "入荷する商品が選択されていません";
 	//(10)在庫一覧画面へ遷移する。
-	// header('Location: zaiko_ichiran.php');
+	header('Location: zaiko_ichiran.php');
 }
 
-echo $_SESSION['success'];
+// echo $_SESSION['success'];
 
 function getId($id,$con)
 {
@@ -126,14 +126,14 @@ return $query->fetch(PDO::FETCH_ASSOC);
     					// ⑯「getId」関数を呼び出し、変数に戻り値を入れる。その際引数に⑮の処理で取得した値と⑥のDBの接続情報を渡す。
 					    $book = getId($book_id, $pdo);
 					?>
-						<input type="hidden" value="<?= $book['id'] ?>" name="books[]">  /* 表示 */
+						<input type="hidden" value="<?= $book['id'] ?>" name="books[]">  <!-- /* 表示 */ -->
 						<tr>
-							<td><?= $book['id'] ?></td>	 /* ⑱ ⑯の戻り値からidを取り出し、する */
-							<td><?= $book['title'] ?></td>  /* ⑲ ⑯の戻り値からtitleを取り出し、表示する */
-							<td><?= $book['author'] ?></td>  /* ⑳ ⑯の戻り値からauthorを取り出し、表示する */
-							<td><?= $book['salesDate'] ?></td>  /* ㉑ ⑯の戻り値からsalesDateを取り出し、表示する */
-							<td><?= $book['price'] ?></td>  /* ㉒ ⑯の戻り値からpriceを取り出し、表示する */
-							<td><?= $book['stock'] ?></td>  /* ㉓ ⑯の戻り値からstockを取り出し、表示する */
+							<td><?= $book['id'] ?></td>	 <!-- /* ⑱ ⑯の戻り値からidを取り出し、する */ -->
+							<td><?= $book['title'] ?></td>  <!-- /* ⑲ ⑯の戻り値からtitleを取り出し、表示する */ -->
+							<td><?= $book['author'] ?></td>  <!-- /* ⑳ ⑯の戻り値からauthorを取り出し、表示する */ -->
+							<td><?= $book['salesDate'] ?></td>  <!-- /* ㉑ ⑯の戻り値からsalesDateを取り出し、表示する */ -->
+							<td><?= $book['price'] ?></td>  <!-- /* ㉒ ⑯の戻り値からpriceを取り出し、表示する */ -->
+							<td><?= $book['stock'] ?></td>  <!-- /* ㉓ ⑯の戻り値からstockを取り出し、表示する */ -->
 							<td><input type='text' name='stock[]' size='5' maxlength='11' required></td>
 						</tr>
 					<?php

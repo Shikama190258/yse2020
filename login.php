@@ -12,7 +12,7 @@
 	ログインしてください：ログインしていない状態で他のページに遷移した場合(ログイン画面に遷移し上記を表示)
 */
 //⑥セッションを開始する
-// session_start();
+session_start();
 
 //①名前とパスワードを入れる変数を初期化する
 $login_name = '';
@@ -41,9 +41,12 @@ if (isset($_POST['decision']) && $_POST['decision'] == '1') {
 
 //⑦名前が入力されているか判定する。入力されていた場合はif文の中に入る
 if ($login_name) {
+
 	//⑧名前に「yse」、パスワードに「2019」と設定されているか確認する。設定されていた場合はif文の中に入る
 	if ($login_name == LOGIN_NAME && $password == LOGIN_PASSWORD){
+		
 		//⑨SESSIONに名前を設定し、SESSIONの「login」フラグをtrueにする
+
 		//⑩在庫一覧画面へ遷移する
 		header('location:zaiko_ichiran.php');
 	} else {
@@ -54,8 +57,11 @@ if ($login_name) {
 
 //⑫SESSIONの「error2」に値が入っているか判定する。入っていた場合はif文の中に入る
 // if (/* ⑫の処理を書く */) {
+
 	//⑬SESSIONの「error2」の値をエラーメッセージを入れる変数に設定する。
+
 	//⑭SESSIONの「error2」にnullを入れる。
+
 // }
 ?>
 <!DOCTYPE html>
@@ -71,7 +77,8 @@ if ($login_name) {
 		<?php
 		//⑮エラーメッセージの変数に入っている値を表示する
 		echo "<div id='error'>", $error_message, "</div>";
-		//⑯メッセージの変数に入っている値を表示する
+
+		//⑯メッセージの変数に入っている値を表示する(不要なため削除するとのこと。)
 		// echo "<div id='msg'>", /* ⑯の変数を書く */, "</div>";
 		?>
 		<form action="login.php" method="post" id="log">
