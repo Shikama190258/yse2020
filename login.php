@@ -35,14 +35,14 @@ if (isset($_POST['decision']) && $_POST['decision'] == '1') {
 		
 	} else {
 		//⑤名前かパスワードが入力されていない場合は、「名前かパスワードが未入力です」という文言をメッセージを入れる変数に設定する
-		$error_message= 'ユーザー名かパスワードが未入力です';
+		$error_message= '名前かパスワードが未入力です';
 	}
 }
 
 //⑦名前が入力されているか判定する。入力されていた場合はif文の中に入る
 if ($login_name) {
 	//⑧名前に「yse」、パスワードに「2019」と設定されているか確認する。設定されていた場合はif文の中に入る
-	if ($login_name == LOGIN_NAME && $password == LOGIN_PASSWORD) {
+	if ($login_name == LOGIN_NAME && $password == LOGIN_PASSWORD){
 		//⑨SESSIONに名前を設定し、SESSIONの「login」フラグをtrueにする
 		//⑩在庫一覧画面へ遷移する
 		header('location:zaiko_ichiran.php');
@@ -71,7 +71,6 @@ if ($login_name) {
 		<?php
 		//⑮エラーメッセージの変数に入っている値を表示する
 		echo "<div id='error'>", $error_message, "</div>";
-		
 		//⑯メッセージの変数に入っている値を表示する
 		// echo "<div id='msg'>", /* ⑯の変数を書く */, "</div>";
 		?>

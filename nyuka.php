@@ -32,9 +32,9 @@ if ($_SESSION['login'] == False){
 //(7)データベースで使用する文字コードを「UTF8」にする
 $db_name = 'zaiko2020_yse';
 $host = 'localhost';
-$user_name = 'root';
-$password = '';
-$dsn = "mysql:dbname={$db_name};host={$host}; charset=utf8";
+$user_name = 'zaiko2020_yse';
+$password = '2020zaiko';
+$dsn = "mysql:dbname={$db_name};host={$host};charset=utf8";
 try {
 	$pdo = new PDO($dsn, $user_name, $password);
 } catch (PDOException $e) {
@@ -54,7 +54,8 @@ if(! $_POST['books']){
 
 echo $_SESSION['success'];
 
-function getId($id,$con){
+function getId($id,$con)
+{
 	/* 
 	 * (11)書籍を取得するSQLを作成する実行する。
 	 * その際にWHERE句でメソッドの引数の$idに一致する書籍のみ取得する。
@@ -121,9 +122,9 @@ return $query->fetch(PDO::FETCH_ASSOC);
 					/*
 					 * (15)POSTの「books」から一つずつ値を取り出し、変数に保存する。
 					 */
-    				foreach($_POST['books'] as $book){
+    				foreach($_POST['books'] as $book_id){
     					// ⑯「getId」関数を呼び出し、変数に戻り値を入れる。その際引数に⑮の処理で取得した値と⑥のDBの接続情報を渡す。
-					    $bookSS = getId($book, $pdo);
+					    $book = getId($book_id, $pdo);
 					?>
 						<input type="hidden" value="<?= $book['id'] ?>" name="books[]">  /* 表示 */
 						<tr>

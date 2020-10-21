@@ -14,12 +14,10 @@
 session_start();
 session_regenerate_id(true);
 
-if ($is_class_mode) {
-	$book = new Book();
-	$query = $book->paginate()->getQueryList();
-} else {
-
-}
+// if ($is_class_mode) {
+// 	$book = new Book();
+// 	$query = $book->paginate()->getQueryList();
+// } else {
 
 //(2)SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
 // if (/* (2)の処理を書く */){
@@ -30,21 +28,23 @@ if ($is_class_mode) {
 //(5)データベースへ接続し、接続情報を変数に保存する
 //(6)データベースで使用する文字コードを「UTF8」にする
 
-$db_name = 'zaiko2020_yse';
-$host = 'localhost';
-$user_name = 'zaiko2020_yse';
-$password = '2020zaiko';
-$dsn = "mysql:dbname={$db_name};host={$host}; charset=utf8";
-try {
-	$pdo = new PDO($dsn, $user_name, $password);
-} catch (PDOException $e) {
-	exit;
-}
+	$db_name = 'zaiko2020_yse';
+	$host = 'localhost';
+	$user_name = 'zaiko2020_yse';
+	$password = '2020zaiko';
+	$dsn = "mysql:dbname={$db_name};host={$host};charset=utf8";
+	try {
+		$pdo = new PDO($dsn, $user_name, $password);
+	} catch (PDOException $e) {
+		exit;
+	}
+
 
 //(7)書籍テーブルから書籍情報を取得するSQLを実行する。また実行結果を変数に保存する
-$sql = "SELECT * FROM books";
-$query = $pdo->query($sql);
-if (!$query) exit($sql);
+	$sql = "SELECT * FROM books";
+	$query = $pdo->query($sql);
+	if (!query) exit($sql);
+// }
 
 ?>
 <!DOCTYPE html>
