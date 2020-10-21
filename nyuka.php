@@ -25,7 +25,7 @@ if ($_SESSION['login'] == False){
 	//(4)SESSIONの「error2」に「ログインしてください」と設定する。
 	$_SESSION['error2'] = "ログインしてください";
 	//(5)ログイン画面へ遷移する。
-	header('Location: login.php');
+	// header('Location: login.php');
 }
 
 //(6)データベースへ接続し、接続情報を変数に保存する
@@ -49,7 +49,7 @@ if(! $_POST['books']){
 	//(9)SESSIONの「success」に「入荷する商品が選択されていません」と設定する。
 	$_SESSION['success'] = "入荷する商品が選択されていません";
 	//(10)在庫一覧画面へ遷移する。
-	header('Location: zaiko_ichiran.php');
+	// header('Location: zaiko_ichiran.php');
 }
 
 echo $_SESSION['success'];

@@ -109,12 +109,12 @@ session_regenerate_id(true);
 
 							echo "<tr>" . PHP_EOL;
 							echo "<td><input type='checkbox' name='books[]'value='{$extract['id']}'></td>"; /* ⑫IDを設定する */
-							echo "<td>{extract['id']}</td>" . PHP_EOL; /* ⑬IDを表示する */
-							echo "<td>{extract['title']}</td>" . PHP_EOL; /* ⑭titleを表示する */
-							echo "<td>{extract['author']}</td>" . PHP_EOL; /* ⑮authorを表示する */
-							echo "<td>{extract['salesDate']}</td>" . PHP_EOL; /* ⑯salesDateを表示する */
-							echo "<td>{extract['price']}</td>" . PHP_EOL; /* ⑰priceを表示する */
-							echo "<td>{extract['stock']}</td>" . PHP_EOL; /* ⑱stockを表示する */
+							echo "<td>{$extract['id']}</td>" . PHP_EOL; /* ⑬IDを表示する */
+							echo "<td>{$extract['title']}</td>" . PHP_EOL; /* ⑭titleを表示する */
+							echo "<td>{$extract['author']}</td>" . PHP_EOL; /* ⑮authorを表示する */
+							echo "<td>{$extract['salesDate']}</td>" . PHP_EOL; /* ⑯salesDateを表示する */
+							echo "<td>{$extract['price']}</td>" . PHP_EOL; /* ⑰priceを表示する */
+							echo "<td>{$extract['stock']}</td>" . PHP_EOL; /* ⑱stockを表示する */
 							echo "</tr>" . PHP_EOL;
 						}
 						?>
