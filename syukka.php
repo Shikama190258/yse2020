@@ -16,13 +16,17 @@
 // if (/* ①の処理を行う */){
 	//②セッションを開始する
 // }
-
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
 //③SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
 // if (/* ③の処理を書く */){
 	//④SESSIONの「error2」に「ログインしてください」と設定する。
 	//⑤ログイン画面へ遷移する。
 // }
-
+if ($_SESSION['login'] == False){
+	$_SESSION['error2'] = "ログインしてください";
+}
 //⑥データベースへ接続し、接続情報を変数に保存する
 //⑦データベースで使用する文字コードを「UTF8」にする
 $db_name = 'zaiko2020_yse';
@@ -41,6 +45,14 @@ try {
 	//⑨SESSIONの「success」に「出荷する商品が選択されていません」と設定する。
 	//⑩在庫一覧画面へ遷移する。
 // }
+if(! $_POST['books']){
+	
+	$_SESSION['success'] = "入荷する商品が選択されていません";
+	
+	// header('Location: zaiko_ichiran.php');
+}
+
+echo $_SESSION['success'];
 
 function getId($id,$con){
 	/* 
@@ -48,11 +60,13 @@ function getId($id,$con){
 	 * その際にWHERE句でメソッドの引数の$idに一致する書籍のみ取得する。
 	 * SQLの実行結果を変数に保存する。
 	 */
-
-	 
-
-
 	//⑫実行した結果から1レコード取得し、returnで値を返す。
+	$sql = "SELECT * FROM books WHERE id = {$id}";
+	$query = $con->query($sql);
+	return $query->fetch(PDO::FETCH_ASSOC);
+
+
+	
 }
 ?>
 <!DOCTYPE html>
@@ -89,6 +103,9 @@ function getId($id,$con){
 		// if(/* ⑬の処理を書く */){
 			//⑭SESSIONの「error」の中身を表示する。
 		// }
+		if($_SESSION['error']){
+			echo $_SESSION['error'];
+			}
 		?>
 		</div>
 		<div id="center">
@@ -110,25 +127,28 @@ function getId($id,$con){
 				 */
 				// foreach(/* ⑮の処理を書く */){
 					// ⑯「getId」関数を呼び出し、変数に戻り値を入れる。その際引数に⑮の処理で取得した値と⑥のDBの接続情報を渡す。
+					foreach($_POST['books'] as $book){
+						$bookSS = getId($book, $pdo);
+					
 				?>
-				<input type="hidden" value="<?php //echo	/* ⑰ ⑯の戻り値からidを取り出し、設定する */;?>" name="books[]">
+				<input type="hidden" value="<?php echo $bookSS['id'];?>" name="books[]">
 				<tr>
-					<td><?php //echo	/* ⑱ ⑯の戻り値からidを取り出し、表示する */;
+					<td><?php echo $bookSS['id'];
 					?></td>
-					<td><?php //echo	/* ⑲ ⑯の戻り値からtitleを取り出し、表示する */;
+					<td><?php echo $bookSS['title'];
 					?></td>
-					<td><?php //echo	/* ⑳ ⑯の戻り値からauthorを取り出し、表示する */;
+					<td><?php echo $bookSS['author'];
 					?></td>
-					<td><?php //echo	/* ㉑ ⑯の戻り値からsalesDateを取り出し、表示する */;
+					<td><?php echo $bookSS['salesDate'];
 					?></td>
-					<td><?php //echo	/* ㉒ ⑯の戻り値からpriceを取り出し、表示する */;
+					<td><?php echo $bookSS['price'];
 					?></td>
-					<td><?php //echo	/* ㉓ ⑯の戻り値からstockを取り出し、表示する */;
-					?></td> -->
+					<td><?php echo $bookSS['stock'];	
+					?></td> 
 					<td><input type='text' name='stock[]' size='5' maxlength='11' required></td>
 				</tr>
 				<?php
-				// }
+				 }
 				?>
 			</table>
 			<button type="submit" id="kakutei" formmethod="POST" name="decision" value="1">確定</button>
