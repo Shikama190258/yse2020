@@ -24,15 +24,15 @@ if (session_status() == PHP_SESSION_NONE) {
 	//④SESSIONの「error2」に「ログインしてください」と設定する。
 	//⑤ログイン画面へ遷移する。
 // }
-if ($_SESSION['login'] == False){
-	$_SESSION['error2'] = "ログインしてください";
-}
+// if ($_SESSION['login'] == False){
+// 	$_SESSION['error2'] = "ログインしてください";
+// }
 //⑥データベースへ接続し、接続情報を変数に保存する
 //⑦データベースで使用する文字コードを「UTF8」にする
 $db_name = 'zaiko2020_yse';
 $host = 'localhost';
-$user_name = 'root';
-$password = '';
+$user_name = 'zaiko2020_yse';
+$password = '2020zaiko';
 $dsn = "mysql:dbname={$db_name};host={$host}; charset=utf8";
 try {
 	$pdo = new PDO($dsn, $user_name, $password);
@@ -45,14 +45,14 @@ try {
 	//⑨SESSIONの「success」に「出荷する商品が選択されていません」と設定する。
 	//⑩在庫一覧画面へ遷移する。
 // }
-if(! $_POST['books']){
+// if(! $_POST['books']){
 	
-	$_SESSION['success'] = "入荷する商品が選択されていません";
+// 	$_SESSION['success'] = "入荷する商品が選択されていません";
 	
-	// header('Location: zaiko_ichiran.php');
-}
+// 	 header('Location: zaiko_ichiran.php');
+// }
 
-echo $_SESSION['success'];
+// echo $_SESSION['success'];
 
 function getId($id,$con){
 	/* 
@@ -103,9 +103,9 @@ function getId($id,$con){
 		// if(/* ⑬の処理を書く */){
 			//⑭SESSIONの「error」の中身を表示する。
 		// }
-		if($_SESSION['error']){
-			echo $_SESSION['error'];
-			}
+		// if($_SESSION['error']){
+		// 	echo $_SESSION['error'];
+		// 	}
 		?>
 		</div>
 		<div id="center">
@@ -127,23 +127,23 @@ function getId($id,$con){
 				 */
 				// foreach(/* ⑮の処理を書く */){
 					// ⑯「getId」関数を呼び出し、変数に戻り値を入れる。その際引数に⑮の処理で取得した値と⑥のDBの接続情報を渡す。
-					foreach($_POST['books'] as $book){
-						$bookSS = getId($book, $pdo);
+					foreach($_POST['books'] as $book_id){
+						$book = getId($book_id, $pdo);
 					
 				?>
 				<input type="hidden" value="<?php echo $bookSS['id'];?>" name="books[]">
 				<tr>
-					<td><?php echo $bookSS['id'];
+					<td><?= $book['id'];
 					?></td>
-					<td><?php echo $bookSS['title'];
+					<td><?= $book['title'];
 					?></td>
-					<td><?php echo $bookSS['author'];
+					<td><?= $book['author'];
 					?></td>
-					<td><?php echo $bookSS['salesDate'];
+					<td><?= $book['salesDate'];
 					?></td>
-					<td><?php echo $bookSS['price'];
+					<td><?= $book['price'];
 					?></td>
-					<td><?php echo $bookSS['stock'];	
+					<td><?= $book['stock'];	
 					?></td> 
 					<td><input type='text' name='stock[]' size='5' maxlength='11' required></td>
 				</tr>
