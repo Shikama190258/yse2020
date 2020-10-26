@@ -79,7 +79,7 @@ foreach ($_POST['books'] as $book_id) {
     }
 
     //(16)「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に(11)の処理で取得した値と(8)のDBの接続情報を渡す。
-    $book = getById($book_id, $pdo);
+    $book = getByid($book_id, $pdo);
     //(17) (16)で取得した書籍の情報の「stock」と、(10)の変数を元にPOSTの「stock」から値を取り出し、足した値を変数に保存する。
     $sum_stock = $book['stock'] + $stock;
     //(18) (17)の値が100を超えているか判定する。超えていた場合はif文の中に入る。
