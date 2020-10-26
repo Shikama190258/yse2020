@@ -21,12 +21,14 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 //③SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
 // if (/* ③の処理を書く */){
-	//④SESSIONの「error2」に「ログインしてください」と設定する。
+//	if ($_SESSION['login'] == False){
+	//④SESSIONの$_SESSION['error2'] = "ログインしてください";
+//	$_SESSION['error2'] = "ログインしてください";
 	//⑤ログイン画面へ遷移する。
-// }
-// if ($_SESSION['login'] == False){
-// 	$_SESSION['error2'] = "ログインしてください";
-// }
+//	header('Location: login.php');
+//}
+
+
 //⑥データベースへ接続し、接続情報を変数に保存する
 //⑦データベースで使用する文字コードを「UTF8」にする
 $db_name = 'zaiko2020_yse';
@@ -45,12 +47,12 @@ try {
 	//⑨SESSIONの「success」に「出荷する商品が選択されていません」と設定する。
 	//⑩在庫一覧画面へ遷移する。
 // }
-// if(! $_POST['books']){
+ if(! $_POST['books']){
 	
-// 	$_SESSION['success'] = "入荷する商品が選択されていません";
+ 	$_SESSION['success'] = "出荷する商品が選択されていません";
 	
-// 	 header('Location: zaiko_ichiran.php');
-// }
+ 	header('Location: zaiko_ichiran.php');
+}
 
 // echo $_SESSION['success'];
 
@@ -103,9 +105,9 @@ function getId($id,$con){
 		// if(/* ⑬の処理を書く */){
 			//⑭SESSIONの「error」の中身を表示する。
 		// }
-		// if($_SESSION['error']){
-		// 	echo $_SESSION['error'];
-		// 	}
+		if($_SESSION['error']){
+			echo $_SESSION['error'];
+		}
 		?>
 		</div>
 		<div id="center">
@@ -131,7 +133,7 @@ function getId($id,$con){
 					$book = getId($book_id, $pdo);
 					
 				?>
-				<input type="hidden" value="<?php echo $bookSS['id'];?>" name="books[]">
+				<input type="hidden" value="<?php echo $book['id'];?>" name="books[]">
 				<tr>
 					<td><?= $book['id'];
 					?></td>
