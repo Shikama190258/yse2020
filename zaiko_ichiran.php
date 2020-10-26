@@ -60,24 +60,33 @@ session_regenerate_id(true);
 	</div>
 	<form action="zaiko_ichiran.php" method="post" id="myform" name="myform">
 		<div id="pagebody">
-			<!-- エラーメッセージ表示 -->
+			<!-- エラーメッセージ表示  -->
 			<div id="error">
 				<?php
 				/*
 				 * (8)SESSIONの「success」にメッセージが設定されているかを判定する。
 				 * 設定されていた場合はif文の中に入る。
 				 */
-				// if(/* (8)の処理を書く */){
+ 				if(!empty($_SESSION['success'])){  /* (8)の処理を書く */
+
 					//(9)SESSIONの「success」の中身を表示する。
-				// }
+					echo $_SESSION['success'];
+				}
+				 
 				?>
 			</div>
-
+			
 			<!-- 左メニュー -->
 			<div id="left">
 				<p id="ninsyou_ippan">
 					<?php
-						echo @$_SESSION["account_name"];
+					
+				?>
+
+			</div>
+
+			<!-- 左メニュー -->
+			<div	echo @$_SESSION["account_name"];
 					?><br>
 					<button type="button" id="logout" onclick="location.href='logout.php'">ログアウト</button>
 				</p>
