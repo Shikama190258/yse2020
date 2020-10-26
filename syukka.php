@@ -105,7 +105,9 @@ function getId($id,$con){
 		// if(/* ⑬の処理を書く */){
 			//⑭SESSIONの「error」の中身を表示する。
 		// }
-		if($_SESSION['error']){
+		
+		// $_SESSION['error'] = "yorosiku";
+		if(! empty($_SESSION['error'])){
 			echo $_SESSION['error'];
 		}
 		?>
