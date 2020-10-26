@@ -60,6 +60,7 @@ session_regenerate_id(true);
 	</div>
 	<form action="zaiko_ichiran.php" method="post" id="myform" name="myform">
 		<div id="pagebody">
+			
 			<!-- エラーメッセージ表示  -->
 			<div id="error">
 				<?php
