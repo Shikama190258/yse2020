@@ -66,6 +66,7 @@ if (!empty($_SESSION['error2'])) {     /* ⑫の処理を書く */
 
 }
 
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
