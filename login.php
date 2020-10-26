@@ -43,7 +43,7 @@ if (isset($_POST['decision']) && $_POST['decision'] == '1') {
 if ($login_name) {
 
 	//⑧名前に「yse」、パスワードに「2019」と設定されているか確認する。設定されていた場合はif文の中に入る
-	if ($login_name == LOGIN_NAME && $password == LOGIN_PASSWORD){
+	if ($login_name == "yse" && $password == "2019"){
 		
 		//⑨SESSIONに名前を設定し、SESSIONの「login」フラグをtrueにする
 
@@ -51,18 +51,21 @@ if ($login_name) {
 		header('location:zaiko_ichiran.php');
 	} else {
 		//⑪名前もしくはパスワードが間違っていた場合は、「ユーザー名かパスワードが間違っています」という文言をメッセージを入れる変数に設定する
-		$error_message= 'ユーザーかパスワードが未入力です';
+		$error_message= 'ユーザーかパスワードが間違っています';
 	}
 }
 
 //⑫SESSIONの「error2」に値が入っているか判定する。入っていた場合はif文の中に入る
-// if (/* ⑫の処理を書く */) {
+if (!empty($_SESSION['error2'])) {     /* ⑫の処理を書く */
 
 	//⑬SESSIONの「error2」の値をエラーメッセージを入れる変数に設定する。
+	$error_message = $_SESSION['error2'];
 
 	//⑭SESSIONの「error2」にnullを入れる。
+	$_SESSION['error2'] = null;
 
-// }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
