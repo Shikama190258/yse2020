@@ -18,7 +18,7 @@ function getByid($id,$con){
 	 */
 
 	//(3)実行した結果から1レコード取得し、returnで値を返す。
-	$sql = 'SELECT * FROM books WHERE id = {$id}';
+	$sql = "SELECT * FROM books WHERE id = {$id}";
 	$query = $con->query($sql);
 	//print_r($query->fetch(PDO::FETCH_ASSOC));
 	return $query->fetch(PDO::FETCH_ASSOC);
@@ -119,6 +119,13 @@ foreach($_POST['books'] as $book_id){
 		//echo getByid($book_id, $pdo)['stock'];
 		// echo '$getidvarha';
 		// var_dump(getByid($book_id, $pdo));
+		echo '$stockha';
+		echo $stock;
+		echo '$stockvarha';
+		var_dump($stock);
+
+
+
 
 		$_SESSION['error'] = '出荷する個数が在庫数を超えています';
 
