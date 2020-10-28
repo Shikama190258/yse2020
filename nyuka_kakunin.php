@@ -155,7 +155,7 @@ if (isset($_POST['add']) && $_POST['add'] = 'ok') {
                         //(33)POSTの「books」から値を取得し、変数に設定する。
                         foreach ($_POST['books'] as $book_id) {
                             //(34)「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に(32)の処理で取得した値と(8)のDBの接続情報を渡す。
-                            $book = getId($book_id, $pdo);
+                            $book = getByid($book_id, $pdo);
                             $stock = $_POST['stock'][$count_books]; ?>
 						<tr>
 							<td><?php $book['title']/* (35) (34)で取得した書籍情報からtitleを表示する。 */; ?>
