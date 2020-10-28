@@ -48,7 +48,7 @@ try {
 if(! $_POST['books']){
 	//(9)SESSIONの「success」に「入荷する商品が選択されていません」と設定する。
 	$_SESSION['success'] = "入荷する商品が選択されていません";
-	//(10)在庫一覧画面へ遷移する。
+	// (10)在庫一覧画面へ遷移する。
 	header('Location: zaiko_ichiran.php');
 }
 

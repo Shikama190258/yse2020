@@ -85,13 +85,7 @@ $query = $pdo->query($sql);
 			<div id="left">
 				<p id="ninsyou_ippan">
 					<?php
-					
-				?>
-
-			</div>
-
-			<!-- 左メニュー -->
-			<div	echo @$_SESSION["account_name"];
+						echo @$_SESSION["account_name"];
 					?><br>
 					<button type="button" id="logout" onclick="location.href='logout.php'">ログアウト</button>
 				</p>
@@ -119,8 +113,8 @@ $query = $pdo->query($sql);
 						<?php
 						//(10)SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
 						while ($extract = $query->fetch(PDO::FETCH_ASSOC)){ /* ⑩の処理を書く */
-							//(11)extract変数を使用し、1レコードのデータを渡す。
 
+							//(11)extract変数を使用し、1レコードのデータを渡す。
 							echo "<tr>" . PHP_EOL;
 							echo "<td><input type='checkbox' name='books[]'value='{$extract['id']}'></td>"; /* ⑫IDを設定する */
 							echo "<td>{$extract['id']}</td>" . PHP_EOL; /* ⑬IDを表示する */

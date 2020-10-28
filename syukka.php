@@ -25,7 +25,7 @@ if (session_status() == PHP_SESSION_NONE) {
 	//④SESSIONの$_SESSION['error2'] = "ログインしてください";
 //	$_SESSION['error2'] = "ログインしてください";
 	//⑤ログイン画面へ遷移する。
-//	header('Location: login.php');
+	header('Location: login.php');
 //}
 
 
@@ -51,7 +51,7 @@ try {
 	
  	$_SESSION['success'] = "出荷する商品が選択されていません";
 	
- 	header('Location: zaiko_ichiran.php');
+ 	// header('Location: zaiko_ichiran.php');
 }
 
 // echo $_SESSION['success'];
