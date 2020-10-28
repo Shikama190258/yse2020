@@ -8,53 +8,55 @@
 なし
 */
 
-//①セッションを開始する
+//(1)セッションを開始する
 session_start();
 function getByid($id,$con){
 	/* 
-	 * ②書籍を取得するSQLを作成する実行する。
+	 * (2)書籍を取得するSQLを作成する実行する。
 	 * その際にWHERE句でメソッドの引数の$idに一致する書籍のみ取得する。
 	 * SQLの実行結果を変数に保存する。
 	 */
 
-	//③実行した結果から1レコード取得し、returnで値を返す。
-	$sql = "SELECT * FROM books WHERE id = {$id}";
+	//(3)実行した結果から1レコード取得し、returnで値を返す。
+	$sql = 'SELECT * FROM books WHERE id = {$id}';
 	$query = $con->query($sql);
-	//rint_r($query->fetch(PDO::FETCH_ASSOC));
+	//print_r($query->fetch(PDO::FETCH_ASSOC));
 	return $query->fetch(PDO::FETCH_ASSOC);
-	//
+	
 	// if ($query->num_rows > 0) {
 	// 	while($row = $query->fetch_assoc()) {
 	// 		return $row;
 	// 	}
 	// }	
-}
+ }
 
 
 function updateByid($id,$con,$total){
 	/*
-	 * ④書籍情報の在庫数を更新するSQLを実行する。
+	 * (4)書籍情報の在庫数を更新するSQLを実行する。
 	 * 引数で受け取った$totalの値で在庫数を上書く。
 	 * その際にWHERE句でメソッドの引数に$idに一致する書籍のみ取得する。
 	 */
 	$sql = "UPDATE books SET stock = {$total} WHERE id = {$id}";
 	$con->query($sql);
+	
+
 	// アロー演算子　かえす必要がない？
 }
 
 
-//⑤SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
+//(5)SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
 //if (/* ⑤の処理を書く */){
-if ($_SESSION['login'] ==False){
-	//⑥SESSIONの「error2」に「ログインしてください」と設定する。
+if ($_SESSION['login'] == False){
+	//(6)SESSIONの「error2」に「ログインしてください」と設定する。
 	$_SESSION['error2'] = "ログインしてください";
-	//⑦ログイン画面へ遷移する。
+	//(7)ログイン画面へ遷移する。
 	// header('Location: login.php');
 }
 
-//⑧データベースへ接続し、接続情報を変数に保存する
+//(8)データベースへ接続し、接続情報を変数に保存する
 
-//⑨データベースで使用する文字コードを「UTF8」にする
+//(9)データベースで使用する文字コードを「UTF8」にする
 $db_name = 'zaiko2020_yse';
 $host = 'localhost';
 $user_name = 'zaiko2020_yse';
@@ -66,14 +68,14 @@ try {
 	exit;
 }
 
-//⑩書籍数をカウントするための変数を宣言し、値を0で初期化する
+//(10)書籍数をカウントするための変数を宣言し、値を0で初期化する
 $count_books = 0;
 // $count = 0;
-//⑪POSTの「books」から値を取得し、変数に設定する。
+//(11)POSTの「books」から値を取得し、変数に設定する。
 //foreach(/* ⑪の処理を書く */){
 foreach($_POST['books'] as $book_id){
 	/*
-	 * ⑫POSTの「stock」について⑩の変数の値を使用して値を取り出す。
+	 * (12)POSTの「stock」について⑩の変数の値を使用して値を取り出す。
 	 * 半角数字以外の文字が設定されていないかを「is_numeric」関数を使用して確認する。
 	 * 半角数字以外の文字が入っていた場合はif文の中に入る。
 	 */
@@ -81,29 +83,29 @@ foreach($_POST['books'] as $book_id){
 	// $stock = $_POST["stock"][$count];
 	//if (/* ⑫の処理を書く */) {
 	if (!is_numeric($stock)) {
-		//⑬SESSIONの「error」に「数値以外が入力されています」と設定する。
-		//⑭「include」を使用して「syukka.php」を呼び出す。
-		//⑮「exit」関数で処理を終了する。
+		//(13)SESSIONの「error」に「数値以外が入力されています」と設定する。
+		//(14)「include」を使用して「syukka.php」を呼び出す。
+		//(15)「exit」関数で処理を終了する。
 		$_SESSION['error'] = "数値以外が入力されています";
 		include ('syukka.php');
 		
 		exit;
 	}
 
-	//⑯「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に⑪の処理で取得した値と⑧のDBの接続情報を渡す。
+	//(16)「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に(11)の処理で取得した値と⑧のDBの接続情報を渡す。
 	// $book = getId($book_id, $pdo);
-	$book=getByid($book_id, $pdo);
+	$book = getByid($book_id, $pdo);
 	// $stock = $_POST['stock'][$count_books];
-	//⑰ ⑯で取得した書籍の情報の「stock」と、⑩の変数を元にPOSTの「stock」から値を取り出して書籍情報の「stock」から値を引いた値を変数に保存する。
-	$sum_stock = $book["stock"] - $stock;
+	//(17) (16)で取得した書籍の情報の「stock」と、⑩の変数を元にPOSTの「stock」から値を取り出して書籍情報の「stock」から値を引いた値を変数に保存する。
+	$sum_stock = $book['stock'] - $stock;
 	// $sum_stock=$book['stock']-$_POST['stock'][$count_books];
 	//$sum_stock = getByid($book_id, $pdo)['stock'] - $stock;
 	
-	//⑱ ⑰の値が0未満か判定する。0未満の場合はif文の中に入る。
-	//if(/* ⑱の処理を行う */){
+	//(18) (17)の値が0未満か判定する。0未満の場合はif文の中に入る。
+	//if(/* (18)の処理を行う */){
 	if($sum_stock < 0){
-		//⑲SESSIONの「error」に「出荷する個数が在庫数を超えています」と設定する。
-		//⑳「include」を使用して「syukka.php」を呼び出す。
+		//(19)SESSIONの「error」に「出荷する個数が在庫数を超えています」と設定する。
+		//(20)「include」を使用して「syukka.php」を呼び出す。
 		//㉑「exit」関数で処理を終了する。
 
 		//echo $sum_stock;
@@ -118,7 +120,7 @@ foreach($_POST['books'] as $book_id){
 		// echo '$getidvarha';
 		// var_dump(getByid($book_id, $pdo));
 
-		$_SESSION['error'] = "出荷する個数が在庫数を超えています";
+		$_SESSION['error'] = '出荷する個数が在庫数を超えています';
 
 		include ('syukka.php');
 		exit;
@@ -133,9 +135,10 @@ foreach($_POST['books'] as $book_id){
 /*
  * ㉓POSTでこの画面のボタンの「add」に値が入ってるか確認する。
  * 値が入っている場合は中身に「ok」が設定されていることを確認する。
+ *
  */
 //if(/* ㉓の処理を書く */){
-if(isset($_POST['add']) ){
+if(isset($_POST['add']) && $_POST['add'] == 'ok'){
 	//㉔書籍数をカウントするための変数を宣言し、値を0で初期化する。
 	$count_books = 0;
 	// $count = 0;
