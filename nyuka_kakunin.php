@@ -87,9 +87,10 @@ foreach ($_POST['books'] as $book_id) {
         //(19)SESSIONの「error」に「最大在庫数を超える数は入力できません」と設定する。
         $_SESSION['error'] = '最大在庫数を超える数は入力できません';
         //(20)「include」を使用して「nyuka.php」を呼び出す。
-        include 'nyuka.php';
+        // include 'nyuka.php';
         //(21)「exit」関数で処理を終了する。
-        exit;
+        // exit;
+        // バグがないか探すのにたまに飛んでってしまって不便なので飛ぶ系はコメントアウト
     }
 
     //(22) (10)で宣言した変数をインクリメントで値を1増やす。
@@ -107,9 +108,10 @@ if (isset($_POST['add']) && $_POST['add'] = 'ok') {
     //(25)POSTの「books」から値を取得し、変数に設定する。
     foreach ($_POST['books'] as $book_id) {
         //(26)「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に(25)の処理で取得した値と(8)のDBの接続情報を渡す。
-        $book = getByid($book, $pdo);
+        $book = getByid($book_id, $pdo);
         //(27) (26)で取得した書籍の情報の「stock」と、(24)の変数を元にPOSTの「stock」から値を取り出し、足した値を変数に保存する。
         $sum_stock = $book['stock'] + $_POST['stock'];
+        // $sum_stock = $book['stock'] + $_POST['stock'][$count_books];
         //(28)「updateByid」関数を呼び出す。その際に引数に(25)の処理で取得した値と(8)のDBの接続情報と(27)で計算した値を渡す。
         updateByid($book_id, $pdo, $sum_stock);
         //(29) (24)で宣言した変数をインクリメントで値を1増やす。
@@ -119,7 +121,7 @@ if (isset($_POST['add']) && $_POST['add'] = 'ok') {
     //(30)SESSIONの「success」に「入荷が完了しました」と設定する。
     $_SESSION['success'] = '入荷が完了しました';
     //(31)「header」関数を使用して在庫一覧画面へ遷移する。
-    header('Location: zaiko_ichiran.php');
+    // header('Location: zaiko_ichiran.php');
 }
 ?>
 <!DOCTYPE html>
