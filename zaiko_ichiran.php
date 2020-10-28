@@ -20,30 +20,34 @@ session_regenerate_id(true);
 // } else {
 
 //(2)SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
-// if (/* (2)の処理を書く */){
+// if ($_SESSION['login'] == False){      /* (2)の処理を書く */
+
 	//(3)SESSIONの「error2」に「ログインしてください」と設定する。
+	// $_SESSION['error2'] = "ログインしてください";
+
 	//(4)ログイン画面へ遷移する。
+	// header('Location: login.php');
 // }
 
 //(5)データベースへ接続し、接続情報を変数に保存する
 //(6)データベースで使用する文字コードを「UTF8」にする
 
-	$db_name = 'zaiko2020_yse';
-	$host = 'localhost';
-	$user_name = 'zaiko2020_yse';
-	$password = '2020zaiko';
-	$dsn = "mysql:dbname={$db_name};host={$host};charset=utf8";
-	try {
-		$pdo = new PDO($dsn, $user_name, $password);
-	} catch (PDOException $e) {
-		exit;
-	}
+$db_name = 'zaiko2020_yse';
+$host = 'localhost';
+$user_name = 'zaiko2020_yse';
+$password = '2020zaiko';
+$dsn = "mysql:dbname={$db_name};host={$host};charset=utf8";
+try {
+	$pdo = new PDO($dsn, $user_name, $password);
+} catch (PDOException $e) {
+	exit;
+}
 
 
 //(7)書籍テーブルから書籍情報を取得するSQLを実行する。また実行結果を変数に保存する
-	$sql = "SELECT * FROM books";
-	$query = $pdo->query($sql);
-	// if (!query) exit($sql);
+$sql = "SELECT * FROM books";
+$query = $pdo->query($sql);
+// if (!query) exit($sql);
 // }
 
 ?>
@@ -60,24 +64,34 @@ session_regenerate_id(true);
 	</div>
 	<form action="zaiko_ichiran.php" method="post" id="myform" name="myform">
 		<div id="pagebody">
-			<!-- エラーメッセージ表示 -->
+			
+			<!-- エラーメッセージ表示  -->
 			<div id="error">
 				<?php
 				/*
 				 * (8)SESSIONの「success」にメッセージが設定されているかを判定する。
 				 * 設定されていた場合はif文の中に入る。
 				 */
-				// if(/* (8)の処理を書く */){
+ 				if(!empty($_SESSION['success'])){  /* (8)の処理を書く */
+
 					//(9)SESSIONの「success」の中身を表示する。
-				// }
+					echo $_SESSION['success'];
+				}
+				 
 				?>
 			</div>
-
+			
 			<!-- 左メニュー -->
 			<div id="left">
 				<p id="ninsyou_ippan">
 					<?php
-						echo @$_SESSION["account_name"];
+					
+				?>
+
+			</div>
+
+			<!-- 左メニュー -->
+			<div	echo @$_SESSION["account_name"];
 					?><br>
 					<button type="button" id="logout" onclick="location.href='logout.php'">ログアウト</button>
 				</p>
