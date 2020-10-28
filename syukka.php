@@ -28,7 +28,6 @@ if (session_status() == PHP_SESSION_NONE) {
 	header('Location: login.php');
 //}
 
-
 //⑥データベースへ接続し、接続情報を変数に保存する
 //⑦データベースで使用する文字コードを「UTF8」にする
 $db_name = 'zaiko2020_yse';

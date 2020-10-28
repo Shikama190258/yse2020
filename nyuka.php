@@ -19,7 +19,6 @@
 	session_start();
  }
 
-
 //(3)SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
 if ($_SESSION['login'] == False){
 	//(4)SESSIONの「error2」に「ログインしてください」と設定する。
