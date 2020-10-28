@@ -129,7 +129,7 @@ foreach($_POST['books'] as $book_id){
 
 		$_SESSION['error'] = '出荷する個数が在庫数を超えています';
 
-		include ('syukka.php');
+		include 'syukka.php';
 		exit;
 	}
 	
