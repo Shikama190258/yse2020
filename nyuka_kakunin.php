@@ -21,7 +21,9 @@ function getByid($id, $con)
     //(3)実行した結果から1レコード取得し、returnで値を返す。
     $sql = "SELECT * FROM books WHERE id = {$id}";
     $query = $con->query($sql);
+if($query){
     return $query->fetch(PDO::FETCH_ASSOC);
+}
 }
 
 function updateByid($id, $con, $total): void

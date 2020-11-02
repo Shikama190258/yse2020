@@ -64,10 +64,11 @@ function getId($id,$con){
 	//⑫実行した結果から1レコード取得し、returnで値を返す。
 	$sql = "SELECT * FROM books WHERE id = {$id}";
 	$query = $con->query($sql);
+if($query){
 	return $query->fetch(PDO::FETCH_ASSOC);
 
 
-	
+}
 }
 ?>
 <!DOCTYPE html>
