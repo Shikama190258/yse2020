@@ -20,14 +20,14 @@ session_regenerate_id(true);
 // } else {
 
 //(2)SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
-// if ($_SESSION['login'] == False){      /* (2)の処理を書く */
+if ($_SESSION['login'] == False){      /* (2)の処理を書く */
 
 	//(3)SESSIONの「error2」に「ログインしてください」と設定する。
-	// $_SESSION['error2'] = "ログインしてください";
+	$_SESSION['error2'] = "ログインしてください";
 
 	//(4)ログイン画面へ遷移する。
-	// header('Location: login.php');
-// }
+	header('Location: login.php');
+}
 
 //(5)データベースへ接続し、接続情報を変数に保存する
 //(6)データベースで使用する文字コードを「UTF8」にする
