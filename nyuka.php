@@ -63,9 +63,10 @@ function getId($id,$con)
 $sql = "SELECT * FROM books WHERE id = {$id}";
 $query = $con->query($sql);
 	//(12)実行した結果から1レコード取得し、returnで値を返す。
-return $query->fetch(PDO::FETCH_ASSOC);
+if($query){
+	return $query->fetch(PDO::FETCH_ASSOC);
 }
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -98,7 +99,7 @@ return $query->fetch(PDO::FETCH_ASSOC);
 			 * (13)SESSIONの「error」にメッセージが設定されているかを判定する。
 			 * 設定されていた場合はif文の中に入る。
 			 */ 
-			if($_SESSION["error"]){
+			if(!empty($_SESSION["error"])){
 				//(14)SESSIONの「error」の中身を表示する。
 				echo $_SESSION['error'];
 			}

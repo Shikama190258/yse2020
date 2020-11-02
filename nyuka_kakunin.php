@@ -110,8 +110,8 @@ if (isset($_POST['add']) && $_POST['add'] = 'ok') {
         //(26)「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に(25)の処理で取得した値と(8)のDBの接続情報を渡す。
         $book = getByid($book_id, $pdo);
         //(27) (26)で取得した書籍の情報の「stock」と、(24)の変数を元にPOSTの「stock」から値を取り出し、足した値を変数に保存する。
-        $sum_stock = $book['stock'] + $_POST['stock'];
-        // $sum_stock = $book['stock'] + $_POST['stock'][$count_books];
+        //$sum_stock = $book['stock'] + $_POST['stock'];
+        $sum_stock = $book['stock'] + $_POST['stock'][$count_books];
         //(28)「updateByid」関数を呼び出す。その際に引数に(25)の処理で取得した値と(8)のDBの接続情報と(27)で計算した値を渡す。
         updateByid($book_id, $pdo, $sum_stock);
         //(29) (24)で宣言した変数をインクリメントで値を1増やす。
@@ -158,11 +158,11 @@ if (isset($_POST['add']) && $_POST['add'] = 'ok') {
                             $book = getByid($book_id, $pdo);
                             $stock = $_POST['stock'][$count_books]; ?>
 						<tr>
-							<td><?php $book['title']/* (35) (34)で取得した書籍情報からtitleを表示する。 */; ?>
+							<td><?php echo $book['title']/* (35) (34)で取得した書籍情報からtitleを表示する。 */; ?>
 							</td>
-							<td><?php $book['stock']/* (36) (34)で取得した書籍情報からstockを表示する。 */; ?>
+							<td><?php echo $book['stock']/* (36) (34)で取得した書籍情報からstockを表示する。 */; ?>
 							</td>
-							<td><?php $stock /* (36) POSTの「stock」に設定されている値を(32)の変数を使用して呼び出す。 */; ?>
+							<td><?php echo $stock /* (36) POSTの「stock」に設定されている値を(32)の変数を使用して呼び出す。 */; ?>
 							</td>
 						</tr>
 						<input type="hidden" name="books[]"
