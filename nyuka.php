@@ -14,10 +14,10 @@
  * (1)session_status()の結果が「PHP_SESSION_NONE」と一致するか判定する。
  * 一致した場合はif文の中に入る。
  */
- if (session_status() == PHP_SESSION_NONE) {
+if (session_status() == PHP_SESSION_NONE) {
 	 //(2)セッションを開始する
 	session_start();
- }
+}
 
 //(3)SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
 if ($_SESSION['login'] == False){
@@ -31,8 +31,8 @@ if ($_SESSION['login'] == False){
 //(7)データベースで使用する文字コードを「UTF8」にする
 $db_name = 'zaiko2020_yse';
 $host = 'localhost';
-$user_name = 'zaiko2020_yse';
-$password = '2020zaiko';
+$user_name = 'root';
+$password = '';
 $dsn = "mysql:dbname={$db_name};host={$host};charset=utf8";
 try {
 	$pdo = new PDO($dsn, $user_name, $password);
@@ -44,7 +44,7 @@ try {
 
 
 //(8)POSTの「books」の値が空か判定する。空の場合はif文の中に入る。
-if(! $_POST['books']){
+if(!$_POST['books']){
 	//(9)SESSIONの「success」に「入荷する商品が選択されていません」と設定する。
 	$_SESSION['success'] = "入荷する商品が選択されていません";
 	// (10)在庫一覧画面へ遷移する。
@@ -63,10 +63,11 @@ function getId($id,$con)
 $sql = "SELECT * FROM books WHERE id = {$id}";
 $query = $con->query($sql);
 	//(12)実行した結果から1レコード取得し、returnで値を返す。
-if($query){
-	return $query->fetch(PDO::FETCH_ASSOC);
+	if($query){
+		return $query->fetch(PDO::FETCH_ASSOC);
+	}
 }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -98,11 +99,13 @@ if($query){
 			/*
 			 * (13)SESSIONの「error」にメッセージが設定されているかを判定する。
 			 * 設定されていた場合はif文の中に入る。
-			 */ 
+			 */
+
 			if(!empty($_SESSION["error"])){
 				//(14)SESSIONの「error」の中身を表示する。
 				echo $_SESSION['error'];
 			}
+
 			?>
 			</div>
 			<div id="center">
@@ -137,7 +140,7 @@ if($query){
 							<td><input type='text' name='stock[]' size='5' maxlength='11' required></td>
 						</tr>
 					<?php
-					 }
+					}
 					?>
 				</table>
 				<button type="submit" id="kakutei" formmethod="POST" name="decision" value="1">確定</button>

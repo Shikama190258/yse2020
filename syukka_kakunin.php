@@ -21,7 +21,9 @@ function getByid($id,$con){
 	$sql = "SELECT * FROM books WHERE id = {$id}";
 	$query = $con->query($sql);
 	//print_r($query->fetch(PDO::FETCH_ASSOC));
-	return $query->fetch(PDO::FETCH_ASSOC);
+	if($query){
+		return $query->fetch(PDO::FETCH_ASSOC);
+	}
 	
 	// if ($query->num_rows > 0) {
 	// 	while($row = $query->fetch_assoc()) {
@@ -51,7 +53,7 @@ if ($_SESSION['login'] == False){
 	//(6)SESSIONの「error2」に「ログインしてください」と設定する。
 	$_SESSION['error2'] = "ログインしてください";
 	//(7)ログイン画面へ遷移する。
-	// header('Location: login.php');
+	header('Location: login.php');
 }
 
 //(8)データベースへ接続し、接続情報を変数に保存する
@@ -59,9 +61,9 @@ if ($_SESSION['login'] == False){
 //(9)データベースで使用する文字コードを「UTF8」にする
 $db_name = 'zaiko2020_yse';
 $host = 'localhost';
-$user_name = 'zaiko2020_yse';
-$password = '2020zaiko';
-$dsn = "mysql:dbname={$db_name};host={$host}; charset=utf8";
+$user_name = 'root';
+$password = '';
+$dsn = "mysql:dbname={$db_name};host={$host};charset=utf8";
 try {
 	$pdo = new PDO($dsn, $user_name, $password);
 } catch (PDOException $e) {
@@ -145,7 +147,8 @@ foreach($_POST['books'] as $book_id){
  *
  */
 //if(/* ㉓の処理を書く */){
-if(isset($_POST['add']) && $_POST['add'] == 'ok'){
+// if(isset($_POST['add']) && $_POST['add'] == 'ok'){
+if(isset($_POST['add'])){
 	//㉔書籍数をカウントするための変数を宣言し、値を0で初期化する。
 	$count_books = 0;
 	// $count = 0;
@@ -157,7 +160,7 @@ if(isset($_POST['add']) && $_POST['add'] == 'ok'){
 		//㉘「updateByid」関数を呼び出す。その際に引数に㉕の処理で取得した値と⑧のDBの接続情報と㉗で計算した値を渡す。
 		//㉙ ㉔で宣言した変数をインクリメントで値を1増やす。
 		$book = getByid($book_id,$pdo);
-		$sum_stock = $book['stock'] - $_POST['stock'];
+		$sum_stock = $book['stock'] - $_POST['stock'][$count_books];
 		// $sum_stock = $book['stock'] - $stock;
 		updateByid($book_id,$pdo,$sum_stock);
 		$count_books++;
@@ -167,7 +170,7 @@ if(isset($_POST['add']) && $_POST['add'] == 'ok'){
 	//㉚SESSIONの「success」に「入荷が完了しました」と設定する。
 	//㉛「header」関数を使用して在庫一覧画面へ遷移する。
 	$_SESSION['success'] = '入荷が完了しました';
-	// header('Location: zaiko_ichiran.php');
+	header('Location: zaiko_ichiran.php');
 }
 ?>
 <!DOCTYPE html>
@@ -205,12 +208,12 @@ if(isset($_POST['add']) && $_POST['add'] == 'ok'){
 						$book = getByid($book_id,$pdo);
 					?>
 					<tr>
-						<td><?php echo	$book['title']/* ㉟ ㉞で取得した書籍情報からtitleを表示する。 */;?></td>
-						<td><?php echo	$book['stock']/* ㊱ ㉞で取得した書籍情報からstockを表示する。 */;?></td>
-						<td><?php echo	$_POST['stock'][$count_books]/* ㊲ POSTの「stock」に設定されている値を㉜の変数を使用して呼び出す。 */;?></td>
+						<td><?php echo $book['title'];?></td>	<!-- ㉟ ㉞で取得した書籍情報からtitleを表示する。 -->
+						<td><?php echo $book['stock'];?></td>	<!--/* ㊱ ㉞で取得した書籍情報からstockを表示する。 */ -->
+						<td><?php echo $_POST['stock'][$count_books];?></td>	<!-- ㊲ POSTの「stock」に設定されている値を㉜の変数を使用して呼び出す。 -->
 					</tr>
-					<input type="hidden" name="books[]" value="<?php echo $book/* ㊳ ㉝で取得した値を設定する */;?>">
-					<input type="hidden" name="stock[]" value='<?php echo $_POST['stock'][$count_books] /* ㊴「POSTの「stock」に設定されている値を㉜の変数を使用して設定する。 */;?>'>
+					<input type="hidden" name="books[]" value="<?php echo $book;?>">	<!--/* ㊳ ㉝で取得した値を設定する */-->
+					<input type="hidden" name="stock[]" value="<?php echo $_POST['stock'][$count_books];?>">	<!-- ㊴「POSTの「stock」に設定されている値を㉜の変数を使用して設定する。 -->
 					<?php
 						//㊵ ㉜で宣言した変数をインクリメントで値を1増やす。
 						$count_books++;

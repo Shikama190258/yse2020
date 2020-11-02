@@ -21,9 +21,9 @@ function getByid($id, $con)
     //(3)実行した結果から1レコード取得し、returnで値を返す。
     $sql = "SELECT * FROM books WHERE id = {$id}";
     $query = $con->query($sql);
-if($query){
-    return $query->fetch(PDO::FETCH_ASSOC);
-}
+    if($query){
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
 }
 
 function updateByid($id, $con, $total): void
@@ -38,7 +38,7 @@ function updateByid($id, $con, $total): void
 }
 
 //(5)SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
-if ($_SESSION['login'] == false) {
+if($_SESSION['login'] == false){
     //(6)SESSIONの「error2」に「ログインしてください」と設定する。
     $_SESSION['error2'] = 'ログインしてください';
     //(7)ログイン画面へ遷移する。
@@ -49,8 +49,8 @@ if ($_SESSION['login'] == false) {
 //(9)データベースで使用する文字コードを「UTF8」にする
 $db_name = 'zaiko2020_yse';
 $host = 'localhost';
-$user_name = 'zaiko2020_yse';
-$password = '2020zaiko';
+$user_name = 'root';
+$password = '';
 $dsn = "mysql:dbname={$db_name};host={$host}; charset=utf8";
 
 try {
@@ -63,7 +63,7 @@ try {
 $count_books = 0;
 
 //(11)POSTの「books」から値を取得し、変数に設定する。
-foreach ($_POST['books'] as $book_id) {
+foreach($_POST['books'] as $book_id) {
     /*
      * (12)POSTの「stock」について(10)の変数の値を使用して値を取り出す。
      * 半角数字以外の文字が設定されていないかを「is_numeric」関数を使用して確認する。
@@ -71,7 +71,7 @@ foreach ($_POST['books'] as $book_id) {
      */
     $stock = $_POST['stock'][$count_books];
 
-    if (!is_numeric($stock)) {
+    if(!is_numeric($stock)){
         //(13)SESSIONの「error」に「数値以外が入力されています」と設定する。
         $_SESSION['error'] = '数値以外が入力されています';
         //(14)「include」を使用して「nyuka.php」を呼び出す。
@@ -89,9 +89,9 @@ foreach ($_POST['books'] as $book_id) {
         //(19)SESSIONの「error」に「最大在庫数を超える数は入力できません」と設定する。
         $_SESSION['error'] = '最大在庫数を超える数は入力できません';
         //(20)「include」を使用して「nyuka.php」を呼び出す。
-        // include 'nyuka.php';
+        include 'nyuka.php';
         //(21)「exit」関数で処理を終了する。
-        // exit;
+        exit;
         // バグがないか探すのにたまに飛んでってしまって不便なので飛ぶ系はコメントアウト
     }
 
@@ -123,7 +123,7 @@ if (isset($_POST['add']) && $_POST['add'] = 'ok') {
     //(30)SESSIONの「success」に「入荷が完了しました」と設定する。
     $_SESSION['success'] = '入荷が完了しました';
     //(31)「header」関数を使用して在庫一覧画面へ遷移する。
-    // header('Location: zaiko_ichiran.php');
+    header('Location: zaiko_ichiran.php');
 }
 ?>
 <!DOCTYPE html>
@@ -160,17 +160,15 @@ if (isset($_POST['add']) && $_POST['add'] = 'ok') {
                             $book = getByid($book_id, $pdo);
                             $stock = $_POST['stock'][$count_books]; ?>
 						<tr>
-							<td><?php echo $book['title']/* (35) (34)で取得した書籍情報からtitleを表示する。 */; ?>
+							<td><?php echo $book['title'];?>    <!--(35) (34)で取得した書籍情報からtitleを表示する -->
 							</td>
-							<td><?php echo $book['stock']/* (36) (34)で取得した書籍情報からstockを表示する。 */; ?>
+							<td><?php echo $book['stock'];?>    <!--(36) (34)で取得した書籍情報からstockを表示する -->
 							</td>
-							<td><?php echo $stock /* (36) POSTの「stock」に設定されている値を(32)の変数を使用して呼び出す。 */; ?>
+							<td><?php echo $stock;?>    <!-- (36) POSTの「stock」に設定されている値を(32)の変数を使用して呼び出す。 -->
 							</td>
 						</tr>
-						<input type="hidden" name="books[]"
-							value="<?php $book['id'] /* (37) (33)で取得した値を設定する */; ?>">
-						<input type="hidden" name="stock[]"
-							value='<?php $stock /* (38)POSTの「stock」に設定されている値を(32)の変数を使用して設定する。 */; ?>'>
+						<input type="hidden" name="books[]" value="<?php $book['id'];?>">   <!-- (37) (33)で取得した値を設定する -->
+						<input type="hidden" name="stock[]"	value="<?php $stock;?>">    <!-- (38)POSTの「stock」に設定されている値を(32)の変数を使用して設定する。 -->
 						<?php
                             //(39) (32)で宣言した変数をインクリメントで値を1増やす。
                             $count_books++;

@@ -32,9 +32,9 @@ if (session_status() == PHP_SESSION_NONE) {
 //⑦データベースで使用する文字コードを「UTF8」にする
 $db_name = 'zaiko2020_yse';
 $host = 'localhost';
-$user_name = 'zaiko2020_yse';
-$password = '2020zaiko';
-$dsn = "mysql:dbname={$db_name};host={$host}; charset=utf8";
+$user_name = 'root';
+$password = '';
+$dsn = "mysql:dbname={$db_name};host={$host};charset=utf8";
 try {
 	$pdo = new PDO($dsn, $user_name, $password);
 } catch (PDOException $e) {
@@ -46,9 +46,9 @@ try {
 	//⑨SESSIONの「success」に「出荷する商品が選択されていません」と設定する。
 	//⑩在庫一覧画面へ遷移する。
 // }
- if(! $_POST['books']){
+if(!$_POST['books']){
 	
- 	$_SESSION['success'] = "出荷する商品が選択されていません";
+	$_SESSION['success'] = "出荷する商品が選択されていません";
 	
  	// header('Location: zaiko_ichiran.php');
 }
@@ -64,11 +64,11 @@ function getId($id,$con){
 	//⑫実行した結果から1レコード取得し、returnで値を返す。
 	$sql = "SELECT * FROM books WHERE id = {$id}";
 	$query = $con->query($sql);
-if($query){
-	return $query->fetch(PDO::FETCH_ASSOC);
+	if($query){
+		return $query->fetch(PDO::FETCH_ASSOC);
 
 
-}
+	}
 }
 ?>
 <!DOCTYPE html>
@@ -137,18 +137,12 @@ if($query){
 				?>
 				<input type="hidden" value="<?php echo $book['id'];?>" name="books[]">
 				<tr>
-					<td><?= $book['id'];
-					?></td>
-					<td><?= $book['title'];
-					?></td>
-					<td><?= $book['author'];
-					?></td>
-					<td><?= $book['salesDate'];
-					?></td>
-					<td><?= $book['price'];
-					?></td>
-					<td><?= $book['stock'];	
-					?></td> 
+					<td><?= $book['id'];?></td>
+					<td><?= $book['title'];?></td>
+					<td><?= $book['author'];?></td>
+					<td><?= $book['salesDate'];?></td>
+					<td><?= $book['price'];?></td>
+					<td><?= $book['stock'];	?></td> 
 					<td><input type='text' name='stock[]' size='5' maxlength='11' required></td>
 				</tr>
 				<?php
