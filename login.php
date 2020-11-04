@@ -45,12 +45,15 @@ if ($login_name) {
 
 	//⑧名前に「yse」、パスワードに「2019」と設定されているか確認する。設定されていた場合はif文の中に入る
 	if ($login_name == "yse" && $password == "2019"){
-		
-		// 試し
-		// $_SESSION['name'] = $login_name;
 
 		//⑨SESSIONに名前を設定し、SESSIONの「login」フラグをtrueにする
+		
+		// 試し
+		$_SESSION['name'] = $login_name;
+		
 		$_SESSION['login'] = true;
+
+
 
 		//⑩在庫一覧画面へ遷移する
 		header('location:zaiko_ichiran.php');
