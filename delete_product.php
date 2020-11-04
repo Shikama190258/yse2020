@@ -1,5 +1,6 @@
 <?php 
 
+
 // 当チームのnyuka.php(syukka.phpもほぼ入荷と同じ作り)を参考に作成
 
 /*
