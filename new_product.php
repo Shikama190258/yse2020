@@ -17,10 +17,33 @@ function getLastId($con)
 
 function addRecord($con): void
 {
-    $sql = 'select id from books where id=(select max(id) from books)';
     // title author salesDate isbn price stock
-    // "INSERT INTO books (ProductID,ProductName,Price) VALUES (1,'bag',9800)";
+    $id = getLastId($con) + 1;
+    $title = $_POST['title'];
+    $author = $_POST['author'];
+    $salesDate = $_POST['salesDate'];
+    $isbn = $_POST['isbn'];
+    $price = $_POST['price'];
+    $stock = $_POST['stock'];
+
+    $sql = "INSERT INTO books VALUES (${id},${title},${author},${salesDate},${isbn},${price},${stock})";
     $con->query($sql);
+}
+
+function connectToDatabase()
+{
+    $db_name = 'zaiko2020_yse';
+    $host = 'localhost';
+    $dsn = "mysql:dbname={$db_name};host={$host}; charset=utf8";
+    $user_name = 'zaiko2020_yse';
+    $password = '2020zaiko';
+
+    try {
+        return new PDO($dsn, $user_name, $password);
+    } catch (PDOException $e) {
+        echo 'エラー!: ' . $e->getMessage() . '<br/gt;';
+        die();
+    }
 }
 
 if ($_SESSION['login'] == false) {
@@ -28,19 +51,25 @@ if ($_SESSION['login'] == false) {
     header('Location: login.php');
 }
 
-$db_name = 'zaiko2020_yse';
-$host = 'localhost';
-$user_name = 'zaiko2020_yse';
-$password = '2020zaiko';
-$dsn = "mysql:dbname={$db_name};host={$host}; charset=utf8";
+function checkInputData(): void
+{
+    // TODO
 
-try {
-    $pdo = new PDO($dsn, $user_name, $password);
-} catch (PDOException $e) {
-    exit;
+    $title = $_POST['title'];
+    $author = $_POST['author'];
+    $salesDate = $_POST['salesDate'];
+    $isbn = $_POST['isbn'];
+    $price = $_POST['price'];
+    $stock = $_POST['stock'];
 }
 
+$pdo = connectToDatabase();
+
 if (isset($_POST['add']) && $_POST['add'] = 'ok') {
+    // checkInputData();
+
+    addRecord($pdo);
+
     $_SESSION['success'] = '新商品を追加しました';
     header('Location: zaiko_ichiran.php');
 }
@@ -70,7 +99,7 @@ if (isset($_POST['add']) && $_POST['add'] = 'ok') {
         </nav>
     </div>
 
-    <form action="new_kakunin.php" method="post">
+    <form action="new_product.php" method="post">
         <div id="pagebody">
             <!-- エラーメッセージ -->
             <div id="error">
@@ -96,19 +125,17 @@ if (isset($_POST['add']) && $_POST['add'] = 'ok') {
                     <tbody>
                         <?php
                         $maxid = getLastId($pdo);
-                        // console_log($maxid);
                         $newid = $maxid + 1;
                         ?>
                         <tr>
                             <td><?= $newid; ?>
                             </td>
-                            <input type="hidden" name="ID"
-                                value="<?= $newid; ?>">
+                            <input type="hidden" name="ID" value="<?= $newid; ?>">
 
                             <td><input type='text' name='title' size='20' maxlength='11' required></td>
                             <td><input type='text' name='author' size='20' maxlength='11' required></td>
-                            <td><input type='text' name='saleDate' size='20' maxlength='11' required></td>
-                            <td><input type='text' name='ISBN' size='20' maxlength='11' required></td>
+                            <td><input type='text' name='salesDate' size='20' maxlength='11' required></td>
+                            <td><input type='text' name='isbn' size='20' maxlength='11' required></td>
                             <td><input type='text' name='price' size='10' maxlength='11' required></td>
                             <td><input type='text' name='stock' size='10' maxlength='11' required></td>
 
