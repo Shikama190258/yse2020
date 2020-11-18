@@ -26,7 +26,8 @@ function addRecord($con): void
     $price = $_POST['price'];
     $stock = $_POST['stock'];
 
-    $sql = "INSERT INTO books VALUES (${id},${title},${author},${salesDate},${isbn},${price},${stock})";
+    //$sql = "INSERT INTO books VALUES (${id},${title},${author},${salesDate},${isbn},${price},${stock})";
+    $sql = "INSERT INTO books(id,title,author,salesDate,isbn,price,stock)VALUES('{$id}','{$title}','{$author}','{$salesDate}','{$isbn}','{$price}','{$stock}')";
     $con->query($sql);
 }
 
