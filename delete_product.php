@@ -44,6 +44,27 @@ if(!$_POST['books']){
 }
 
 // echo $_SESSION['success'];
+// ここから1つ目追加
+// ここから1つ目追加
+// ここから1つ目追加
+if(isset($_POST["decision"]) && $_POST["decision"] == "1"){
+
+    foreach($_POST['books'] as $book_id){
+    
+        $delete_flg=1;
+        $book=delflgByid($book_id,$pdo,$delete_flg);
+    }
+
+	//SESSIONの「success」に「商品削除が完了しました」と設定する。
+	$_SESSION["success"] = "商品削除が完了しました";
+	//「header」関数を使用して在庫一覧画面へ遷移する。
+    header('Location: zaiko_ichiran.php');
+    
+}
+// ここまで1つ目追加
+// ここまで1つ目追加
+// ここまで1つ目追加
+
 
 function getId($id,$con)
 {
@@ -52,13 +73,28 @@ function getId($id,$con)
     * その際にWHERE句でメソッドの引数の$idに一致する書籍のみ取得する。
     * SQLの実行結果を変数に保存する。
     */
-$sql = "SELECT * FROM books WHERE id = {$id}";
-$query = $con->query($sql);
+    $sql = "SELECT * FROM books WHERE id = {$id}";
+    $query = $con->query($sql);
    //(12)実行した結果から1レコード取得し、returnで値を返す。
    if($query){
        return $query->fetch(PDO::FETCH_ASSOC);
    }
 }
+
+// ここから2つ目追加
+// ここから2つ目追加
+// ここから2つ目追加
+function delflgByid($id, $con, $flg)
+{
+    $sql = "UPDATE books SET is_del={$flg} WHERE id={$id}";   
+    return $query=$con->query($sql);
+}   
+// ここまで2つ目追加
+// ここまで2つ目追加
+// ここまで2つ目追加
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -71,7 +107,7 @@ $query = $con->query($sql);
 <body>
    <!-- ヘッダ -->
    <div id="header">
-       <h1>入荷</h1>
+       <h1>削除</h1>
    </div>
 
    <!-- メニュー -->
@@ -110,7 +146,7 @@ $query = $con->query($sql);
                            <th id="salesDate">発売日</th>
                            <th id="itemPrice">金額(円)</th>
                            <th id="stock">在庫数</th>
-                           <th id="stock">削除数</th>　　<!-- <th id="in">入荷数</th>を元に左のように書き換えた。-->
+                           <!-- <th id="stock">削除数</th>　　<th id="in">入荷数</th>を元に左のように書き換えた。 すみません消しました-->
                        </tr>
                    </thead>
                    <?php 
@@ -129,7 +165,7 @@ $query = $con->query($sql);
                            <td><?= $book['salesDate'] ?></td>  <!-- /* ㉑ ⑯の戻り値からsalesDateを取り出し、表示する */ -->
                            <td><?= $book['price'] ?></td>  <!-- /* ㉒ ⑯の戻り値からpriceを取り出し、表示する */ -->
                            <td><?= $book['stock'] ?></td>  <!-- /* ㉓ ⑯の戻り値からstockを取り出し、表示する */ -->
-                           <td><input type='text' name='stock[]' size='5' maxlength='11' required></td>
+                           <!-- <td><input type='text' name='stock[]' size='5' maxlength='11' required></td> -->
                        </tr>
                    <?php
                    }

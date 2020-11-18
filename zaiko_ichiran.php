@@ -41,6 +41,23 @@ try {
 //(7)書籍テーブルから書籍情報を取得するSQLを実行する。また実行結果を変数に保存する
 $sql = 'SELECT * FROM books';
 $query = $pdo->query($sql);
+
+
+// ここから3つ目追加
+// ここから3つ目追加
+// ここから3つ目追加
+
+// 上の(7)下2行をコメントアウトしてこの下の2行をコメントアウト解除すれば恐らく削除機能
+// 事前にphpmyadminの構造から独自にyse2020へis_delカラム追加しておかないと機能しない
+
+// $sql = "SELECT * FROM books WHERE is_del = 0";
+// $query = $pdo->query($sql);
+
+// ここまで3つ目追加
+// ここまで3つ目追加
+// ここまで3つ目追加
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
