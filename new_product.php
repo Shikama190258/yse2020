@@ -104,7 +104,7 @@ if (isset($_POST['add']) && $_POST['add'] = 'ok') {
             <!-- エラーメッセージ -->
             <div id="error">
                 <?php
-            if ($_SESSION['error']) {
+            if (!empty($_SESSION["error"])) {
                 echo $_SESSION['error'];
             }
             ?>

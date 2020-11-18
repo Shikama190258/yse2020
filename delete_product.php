@@ -83,7 +83,7 @@ $query = $con->query($sql);
        </nav>
    </div>
 
-   <form action="delete_kakunin.php" method="post">   <!-- 「nyuka_kakunin.php」だった記述を「delete_kakunin.php」にした。 -->
+   <form action="delete_product.php" method="post">   <!-- 「nyuka_kakunin.php」だった記述を「delete_product.php」にした。 -->
        <div id="pagebody">
            <!-- エラーメッセージ -->
            <div id="error">
